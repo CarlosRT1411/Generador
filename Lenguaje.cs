@@ -83,6 +83,7 @@ namespace Generador
             Programa("programa");
             cabeceraLenguaje();
             listaProducciones();
+            identado('}');
             lenguaje.WriteLine(tabulador + "}");
             lenguaje.WriteLine("}");
         }
@@ -120,7 +121,6 @@ namespace Generador
             lenguaje.WriteLine(tabulador + "cerrar();");
             identado('}');
             lenguaje.WriteLine(tabulador + "}");
-
         }
         private void listaProducciones()
         {
@@ -142,20 +142,20 @@ namespace Generador
         {
             if(esTipo(getContenido()))
             {
-                lenguaje.WriteLine(tabulador + "match(Tipos." + getContenido() +")");
+                lenguaje.WriteLine(tabulador + "match(Tipos." + getContenido() +");");
                 match(Tipos.SNT);
             }
             else if(getClasificacion() == Tipos.ST)
             {
-                lenguaje.WriteLine(tabulador + "match(" + getContenido() +")");
+                lenguaje.WriteLine(tabulador + "match(\"" + getContenido() +"\");");
                 match(Tipos.ST);
             }
             else if(getClasificacion() == Tipos.SNT)
             {
-                lenguaje.WriteLine(tabulador + "match(" + getContenido() +")");
+                lenguaje.WriteLine(tabulador + "match(" + getContenido() +"();");
                 match(Tipos.SNT);
             }
-            if(getClasificacion() == Tipos.FinProduccion)
+            if(getClasificacion() != Tipos.FinProduccion)
             {
                 simbolos(); 
             }

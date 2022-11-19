@@ -1,5 +1,5 @@
 Archivo: c2.gram
-19/11/2022 04:11:14 p. m.
+19/11/2022 04:30:39 p. m.
 Gramatica SNT
 : ST
 cplusplus SNT
@@ -9,4 +9,23 @@ Programa SNT
 -> Produce
 # ST
 Identificador SNT
-Error de sintaxis, se espera un FinProduccion en linea: 2
+, ST
+Numero SNT
+
+ FinProduccion
+Librerias SNT
+-> Produce
+OperadorTermino SNT
+
+ FinProduccion
+Variables SNT
+-> Produce
+( ST
+) ST
+
+ FinProduccion
+ListaIdentificadores SNT
+-> Produce
+Caracter SNT
+
+ FinProduccion
