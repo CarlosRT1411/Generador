@@ -2,10 +2,10 @@
 using System;
 using System.Collections.Generic;
 //Requerimiento 1. Construir un metodo para escribir en el archivo Lenguaje.cs identando el codigo
-//                 "{" incrementa un tabulador, "}" decrementa un tabulador
+//                 "{" incrementa un tabulador, "}" decrementa un tabulador V
 //Requerimiento 2. Declarar un atributo "primeraProduccion" de tipo string y actualizarlo con la 
-//                 primera produccion de la gramatica
-//Requerimiento 3. La primera produccion es publica y el resto es privada
+//                 primera produccion de la gramatica V 
+//Requerimiento 3. La primera produccion es publica y el resto es privada V 
 //Requerimiento 4. El constructor lexico parametrico debe validar que la extensión del archivo a compilar
                  //sea .gen y sino levantar una exception
 //Requerimiento 5. Resolver la ambiguedad de st y snt
@@ -14,14 +14,16 @@ namespace Generador
 {
     public class Lenguaje : Sintaxis, IDisposable
     {
-        string tabulador;
+        private string tabulador, primeraProduccion;
         public Lenguaje(string nombre) : base(nombre)
         {
             tabulador = "";
+            primeraProduccion = "public ";
         }
         public Lenguaje()
         {
             tabulador = "";
+            primeraProduccion = "public ";
         }
         public void Dispose()
         {
@@ -124,7 +126,8 @@ namespace Generador
         }
         private void listaProducciones()
         {
-            lenguaje.WriteLine(tabulador + "private void "+getContenido()+"()");
+            lenguaje.WriteLine(tabulador + primeraProduccion + "void "+getContenido()+"()");
+            primeraProduccion = "private ";
             lenguaje.WriteLine(tabulador + "{");
             identado('{');
             match(Tipos.SNT);
