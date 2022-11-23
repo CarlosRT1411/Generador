@@ -15,6 +15,7 @@ namespace Generador
     public class Lenguaje : Sintaxis, IDisposable
     {
         private string tabulador, primeraProduccion;
+        private linkedList<string> SNT = new LinkedList<string>();
         public Lenguaje(string nombre) : base(nombre)
         {
             tabulador = "";
@@ -82,7 +83,7 @@ namespace Generador
         public void gramatica()
         {
             cabecera();
-            Programa("programa");
+            Programa(getContenido());
             cabeceraLenguaje();
             listaProducciones();
             identado('}');
@@ -155,7 +156,7 @@ namespace Generador
             }
             else if(getClasificacion() == Tipos.SNT)
             {
-                lenguaje.WriteLine(tabulador + "match(" + getContenido() +"();");
+                lenguaje.WriteLine(tabulador + getContenido() +"();");
                 match(Tipos.SNT);
             }
             if(getClasificacion() != Tipos.FinProduccion)
