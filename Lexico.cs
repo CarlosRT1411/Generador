@@ -49,7 +49,6 @@ namespace Generador
         public Lexico(string nombre)
         {
             linea = 1;
-            
             string pathLog = Path.ChangeExtension(nombre, ".log");
             log = new StreamWriter(pathLog);
             log.AutoFlush = true;
