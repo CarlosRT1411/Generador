@@ -8,23 +8,28 @@ using System.Collections.Generic;
 //Requerimiento 3. La primera produccion es publica y el resto es privada V 
 //Requerimiento 4. El constructor lexico parametrico debe validar que la extensión del archivo a compilar
                  //sea .gen y sino levantar una exception
-//Requerimiento 5. Resolver la ambiguedad de st y snt
+//Requerimiento 5. Resolver la ambiguedad de st y snt. Recorer linea por linea el archivo gram para estraer los nombres de produccion V
+//Requerimiento 6. Agregar el parentesis izquierdo y parentesis derecho escapados 
+//                 en la matriz de transiciones V
+//Requerimiento 7. Implementar la cerradura epsilon V
 
 namespace Generador
 {
     public class Lenguaje : Sintaxis, IDisposable
     {
         private string tabulador, primeraProduccion;
-        private List<string> stackSnt = new List<string>();
+        private List<string> stackSnt;
         public Lenguaje(string nombre) : base(nombre)
         {
             tabulador = "";
             primeraProduccion = "public ";
+            stackSnt = new List<string>();
         }
         public Lenguaje()
         {
             tabulador = "";
             primeraProduccion = "public ";
+            stackSnt = new List<string>();
         }
         public void Dispose()
         {
@@ -45,14 +50,7 @@ namespace Generador
         }
         private bool esSNT(string produccion)
         {
-            foreach (var noTerminal in stackSnt)
-            {
-                if(noTerminal == produccion)
-                {
-                    return true;
-                }
-            }
-            return false; 
+            return stackSnt.Contains(produccion);
         }
         private void identado(char contenido)
         {
@@ -169,14 +167,31 @@ namespace Generador
         }
         private void simbolos()
         {
-            if(!esSNT(getContenido()))
+            if(getContenido() == "\\("){
+                match("\\(");
+                if(esTipo(getContenido()))
+                {
+                    lenguaje.WriteLine(tabulador + "if(getClasificacion() == Tipos." + getContenido() + ")");
+                }
+                else 
+                {
+                    lenguaje.WriteLine(tabulador + "if(getContenido() == " + getContenido() + ")");
+                }
+                lenguaje.WriteLine(tabulador + "{");
+                identado('{'); 
+                simbolos();
+                match("\\)");
+                identado('}'); 
+                lenguaje.WriteLine(tabulador + "}");
+            }
+            else if(!esSNT(getContenido()))
             {
                 setClasificacion(Tipos.ST);
             }
             if(esTipo(getContenido()))
             {
                 lenguaje.WriteLine(tabulador + "match(Tipos." + getContenido() +");");
-                match(Tipos.ST); //verificar
+                match(Tipos.ST);
             }
             else if(getClasificacion() == Tipos.ST)
             {
@@ -188,9 +203,9 @@ namespace Generador
                 lenguaje.WriteLine(tabulador + getContenido() +"();");
                 match(Tipos.SNT);
             }
-            if(getClasificacion() != Tipos.FinProduccion)
+            if(getClasificacion() != Tipos.FinProduccion && getContenido() != "\\)")
             {
-                simbolos(); 
+                simbolos();
             }
         }
 

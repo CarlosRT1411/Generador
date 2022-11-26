@@ -1,5 +1,5 @@
 Archivo: c2.gram
-22/11/2022 08:40:41 p. m.
+26/11/2022 10:08:25 a. m.
 Gramatica SNT
 : ST
 cplusplus SNT
@@ -12,10 +12,9 @@ ListaIdentificadores SNT
 programa SNT
 -> Produce
 # ST
-Identificador SNT
+identificador SNT
 , ST
 Numero SNT
-probando SNT
 
  FinProduccion
 Librerias SNT
@@ -25,10 +24,13 @@ OperadorTermino SNT
  FinProduccion
 Variables SNT
 -> Produce
-( ST
-) ST
+\( PIzquierdo
+Identificador SNT
+\) PDerecho
 
  FinProduccion
 ListaIdentificadores SNT
 -> Produce
+\( PIzquierdo
 Caracter SNT
+\) PDerecho
