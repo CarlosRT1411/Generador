@@ -15,7 +15,7 @@ namespace Generador
     public class Lenguaje : Sintaxis, IDisposable
     {
         private string tabulador, primeraProduccion;
-        private linkedList<string> SNT = new LinkedList<string>();
+        private List<string> stackSnt = new List<string>();
         public Lenguaje(string nombre) : base(nombre)
         {
             tabulador = "";
@@ -29,6 +29,30 @@ namespace Generador
         public void Dispose()
         {
             cerrar();
+        }
+        private void NoTerminales()
+        {
+            int pos = posicion - getContenido().Length; 
+            while(archivo.Peek() > -1)
+            {
+                stackSnt.Add(getContenido());
+                archivo.ReadLine();
+                NextToken();
+            } 
+            archivo.DiscardBufferedData(); 
+            archivo.BaseStream.Seek(pos, System.IO.SeekOrigin.Begin);
+            NextToken(); 
+        }
+        private bool esSNT(string produccion)
+        {
+            foreach (var noTerminal in stackSnt)
+            {
+                if(noTerminal == produccion)
+                {
+                    return true;
+                }
+            }
+            return false; 
         }
         private void identado(char contenido)
         {
@@ -85,6 +109,7 @@ namespace Generador
             cabecera();
             Programa(getContenido());
             cabeceraLenguaje();
+            NoTerminales(); 
             listaProducciones();
             identado('}');
             lenguaje.WriteLine(tabulador + "}");
@@ -144,10 +169,14 @@ namespace Generador
         }
         private void simbolos()
         {
+            if(!esSNT(getContenido()))
+            {
+                setClasificacion(Tipos.ST);
+            }
             if(esTipo(getContenido()))
             {
                 lenguaje.WriteLine(tabulador + "match(Tipos." + getContenido() +");");
-                match(Tipos.SNT);
+                match(Tipos.ST); //verificar
             }
             else if(getClasificacion() == Tipos.ST)
             {
