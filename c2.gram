@@ -1,5 +1,17 @@
 Gramatica: cplusplus
-    programa  -> #identificador, Numero
-    Librerias -> OperadorTermino
-    Variables -> \(Identificador\)
-    ListaIdentificadores -> \(Caracter\)
+    Programa  -> Librerias Variables Main
+    Librerias -> \(#include<Identificador\(.h\)> Librerias\)
+    Variables -> \(TipoDato ListaIdentificadores; Variables\)
+    ListaIdentificadores -> Identificador \(,ListaIdentificadores\)
+    BloqueDeInstrucciones -> {\(ListaInstrucciones\)}
+    ListaInstrucciones -> Instruccion \(ListaInstrucciones\)
+    Instruccion -> Printf
+    Asignacion -> Identificador = Expresion;
+    Printf -> printf(Cadena);
+    Main -> void main() BloqueDeInstrucciones
+    Expresion -> Termino MasTermino
+    MasTermino -> \(OperadorTermino Termino\)
+    Termino -> Factor PorFactor
+    PorFactor -> \(OperadorFactor Factor\) 
+    Factor -> Numero
+ 

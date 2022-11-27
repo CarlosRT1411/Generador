@@ -1,36 +1,145 @@
 Archivo: c2.gram
-26/11/2022 10:08:25 a. m.
+26/11/2022 11:04:01 a. m.
 Gramatica SNT
 : ST
 cplusplus SNT
 
  FinProduccion
-programa SNT
+Programa SNT
 Librerias SNT
 Variables SNT
 ListaIdentificadores SNT
-programa SNT
+BloqueDeInstrucciones SNT
+ListaInstrucciones SNT
+Instruccion SNT
+Asignacion SNT
+Printf SNT
+Main SNT
+Expresion SNT
+MasTermino SNT
+Termino SNT
+PorFactor SNT
+Factor SNT
+Programa SNT
 -> Produce
+Librerias SNT
+Variables SNT
+Main SNT
+
+ FinProduccion
+Librerias SNT
+-> Produce
+\( PIzquierdo
 # ST
-identificador SNT
+include SNT
+< ST
+Identificador SNT
+\( PIzquierdo
+. ST
+h SNT
+\) PDerecho
+> ST
+Librerias SNT
+\) PDerecho
+
+ FinProduccion
+Variables SNT
+-> Produce
+\( PIzquierdo
+TipoDato SNT
+ListaIdentificadores SNT
+; ST
+Variables SNT
+\) PDerecho
+
+ FinProduccion
+ListaIdentificadores SNT
+-> Produce
+Identificador SNT
+\( PIzquierdo
 , ST
+ListaIdentificadores SNT
+\) PDerecho
+
+ FinProduccion
+BloqueDeInstrucciones SNT
+-> Produce
+{ ST
+\( PIzquierdo
+ListaInstrucciones SNT
+\) PDerecho
+} ST
+
+ FinProduccion
+ListaInstrucciones SNT
+-> Produce
+Instruccion SNT
+\( PIzquierdo
+ListaInstrucciones SNT
+\) PDerecho
+
+ FinProduccion
+Instruccion SNT
+-> Produce
+Printf SNT
+
+ FinProduccion
+Asignacion SNT
+-> Produce
+Identificador SNT
+= ST
+Expresion SNT
+; ST
+
+ FinProduccion
+Printf SNT
+-> Produce
+printf SNT
+( ST
+Cadena SNT
+) ST
+; ST
+
+ FinProduccion
+Main SNT
+-> Produce
+void SNT
+main SNT
+( ST
+) ST
+BloqueDeInstrucciones SNT
+
+ FinProduccion
+Expresion SNT
+-> Produce
+Termino SNT
+MasTermino SNT
+
+ FinProduccion
+MasTermino SNT
+-> Produce
+\( PIzquierdo
+OperadorTermino SNT
+Termino SNT
+\) PDerecho
+
+ FinProduccion
+Termino SNT
+-> Produce
+Factor SNT
+PorFactor SNT
+
+ FinProduccion
+PorFactor SNT
+-> Produce
+\( PIzquierdo
+OperadorFactor SNT
+Factor SNT
+\) PDerecho
+
+ FinProduccion
+Factor SNT
+-> Produce
 Numero SNT
 
  FinProduccion
-Librerias SNT
--> Produce
-OperadorTermino SNT
-
- FinProduccion
-Variables SNT
--> Produce
-\( PIzquierdo
-Identificador SNT
-\) PDerecho
-
- FinProduccion
-ListaIdentificadores SNT
--> Produce
-\( PIzquierdo
-Caracter SNT
-\) PDerecho

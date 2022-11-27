@@ -7,7 +7,7 @@ using System.Collections.Generic;
 //                 primera produccion de la gramatica V 
 //Requerimiento 3. La primera produccion es publica y el resto es privada V 
 //Requerimiento 4. El constructor lexico parametrico debe validar que la extensión del archivo a compilar
-                 //sea .gen y sino levantar una exception
+                 //sea .gen y sino levantar una exception V
 //Requerimiento 5. Resolver la ambiguedad de st y snt. Recorer linea por linea el archivo gram para estraer los nombres de produccion V
 //Requerimiento 6. Agregar el parentesis izquierdo y parentesis derecho escapados 
 //                 en la matriz de transiciones V
@@ -175,7 +175,7 @@ namespace Generador
                 }
                 else 
                 {
-                    lenguaje.WriteLine(tabulador + "if(getContenido() == " + getContenido() + ")");
+                    lenguaje.WriteLine(tabulador + "if(getContenido() == \"" + getContenido() + "\")");
                 }
                 lenguaje.WriteLine(tabulador + "{");
                 identado('{'); 
